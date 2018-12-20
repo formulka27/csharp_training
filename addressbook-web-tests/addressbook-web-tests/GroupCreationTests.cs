@@ -65,11 +65,11 @@ namespace WebAaddressbookTests
         private void FillGroupForm(string groupName, string groupHeader, string groupFooter)
         {
             driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys("groupName");
+            driver.FindElement(By.Name("group_name")).SendKeys(groupName);
             driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys("groupHeader");
+            driver.FindElement(By.Name("group_header")).SendKeys(groupHeader);
             driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys("groupFooter");
+            driver.FindElement(By.Name("group_footer")).SendKeys(groupFooter);
         }
 
         private void InitGroupCreation()
