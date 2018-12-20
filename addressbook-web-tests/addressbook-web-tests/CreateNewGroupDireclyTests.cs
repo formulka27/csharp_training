@@ -37,7 +37,7 @@ namespace WebAaddressbookTests
             Assert.AreEqual("", verificationErrors.ToString());
         }
         [Test]
-        public void CreateNewGroupDirectly()
+        public void CreationNewGroupDirectly()
         {
             driver.Navigate().GoToUrl(baseURL + "/addressbook/");
             driver.FindElement(By.Name("user")).Clear();
