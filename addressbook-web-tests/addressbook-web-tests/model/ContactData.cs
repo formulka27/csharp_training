@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebAaddressbookTests
 {
-    public class ContactData
+    class ContactData
     {
         //объявляем поля
         private string firstname;
