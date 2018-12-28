@@ -3,15 +3,22 @@
 namespace WebAaddressbookTests
 {
     [TestFixture]
-    public class GroupRemovalTests:TestBase
+    public class GroupRemovalTests : TestBase
     {
-       
         [Test]
         public void GroupRemovalTest()
         {
-            app.Groups.Remove(1);
-           
+            app.Navigator.GoToHomePage();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Navigator.GoToGroupsPage();
+            app.Groups.SelectGroup(1);
+            app.Groups.RemoveGroup();
+            app.Groups.ReturnToGroupsPage();
         }
-  
     }
 }
+
+   
+
+   
+    

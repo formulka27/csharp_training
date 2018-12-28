@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
 
 namespace WebAaddressbookTests
 {
@@ -11,8 +10,7 @@ namespace WebAaddressbookTests
         public void SetupTest()
         {
             app = new ApplicationManager();
-            app.Navigator.GoToHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
+
         }
 
         [TearDown]
@@ -20,17 +18,9 @@ namespace WebAaddressbookTests
         {
             app.Stop();
         }
+        //*for groups were moved to GroupHelper
 
-        private bool IsAlertPresent()
-        {
-            try
-            {
-                driver.SwitchTo().Alert();
-                return true;
-            }
-            catch (NoAlertPresentException)
-            {
-                return false;
-            }
-        }
+        //*for contactswere moved to ContactHelper
 
+    }
+}

@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace WebAaddressbookTests
 {
-    class ContactData
+    public class ContactData
     {
         //объявляем поля
         private string firstname;
         private string lastname;
         //значения по умолчанию можно и не указывать
-        private string middlename = "";
-        private string nickname = "";
+        //private string middlename = "";
+        //private string nickname = "";
 
         //создаем конструктор для класса ContactData
         public ContactData(string firstname, string lastname)
