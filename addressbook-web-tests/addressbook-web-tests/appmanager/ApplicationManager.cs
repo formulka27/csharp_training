@@ -24,11 +24,20 @@ namespace WebAaddressbookTests
             driver = new FirefoxDriver();
             baseURL = "http://localhost";
             verificationErrors = new StringBuilder();
-            loginHelper = new LoginHelper(driver);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            loginHelper = new LoginHelper(this);
+            navigator = new NavigationHelper(this, baseURL);
+            groupHelper = new GroupHelper(this);
+            contactHelper = new ContactHelper(this);
+        }
 
-            navigator = new NavigationHelper(driver, baseURL);
-            groupHelper = new GroupHelper(driver);
-            contactHelper = new ContactHelper(driver);
+        public IWebDriver Driver
+        {
+            get
+            {
+                return driver;
+            }
+
         }
         public void Stop()
         {
@@ -40,7 +49,7 @@ namespace WebAaddressbookTests
             {
                 // Ignore errors if unable to close the browser
             }
-          } 
+        }
 
         public LoginHelper Auth
         {
@@ -71,6 +80,6 @@ namespace WebAaddressbookTests
                 return contactHelper;
             }
         }
-        
     }
+       
 }
