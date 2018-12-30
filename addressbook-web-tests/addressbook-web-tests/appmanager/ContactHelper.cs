@@ -49,8 +49,8 @@ namespace WebAaddressbookTests
 
         public ContactHelper EditContact(int v)
         {
-            driver.FindElement(By.XPath($"//a[@href='edit.php?id=9']")).Click();
-           
+          //driver.FindElement(By.XPath($"//a[@href='edit.php?id=9']")).Click();
+            driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
             return this;
         }
 
