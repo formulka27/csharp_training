@@ -27,6 +27,7 @@ namespace WebAaddressbookTests
             SelectContact(v);
             RemoveContact();
             CloseAlert();
+            manager.Navigator.VerifyHomePage();
 
             return this;
         }
@@ -34,7 +35,7 @@ namespace WebAaddressbookTests
         {
             
             manager.Navigator.VerifyHomePage();
-            EditContact();
+            EditContact(v);
             FillNewContactForm(newData);
             SubmitContactModification();
             return this;
@@ -46,9 +47,9 @@ namespace WebAaddressbookTests
             return this;
         }
 
-        public ContactHelper EditContact()
+        public ContactHelper EditContact(int v)
         {
-            driver.FindElement(By.XPath($"//a[@href='edit.php?id=32']")).Click();
+            driver.FindElement(By.XPath($"//a[@href='edit.php?id=9']")).Click();
            
             return this;
         }
@@ -88,7 +89,7 @@ namespace WebAaddressbookTests
 
         public ContactHelper SelectContact(int v)
         {
-            driver.FindElement(By.Id("21")).Click();
+            driver.FindElement(By.Id("29")).Click();
             return this;
         }
     }
