@@ -3,6 +3,9 @@ using System.Text;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using System.Threading;
+using System.Threading.Tasks;
+
 
 namespace WebAaddressbookTests
 {
@@ -19,7 +22,9 @@ namespace WebAaddressbookTests
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
 
-        public ApplicationManager()
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
+
+        private ApplicationManager()
         {
             driver = new FirefoxDriver();
             baseURL = "http://localhost";
@@ -31,15 +36,7 @@ namespace WebAaddressbookTests
             contactHelper = new ContactHelper(this);
         }
 
-        public IWebDriver Driver
-        {
-            get
-            {
-                return driver;
-            }
-
-        }
-        public void Stop()
+        ~ApplicationManager()
         {
             try
             {
@@ -49,6 +46,29 @@ namespace WebAaddressbookTests
             {
                 // Ignore errors if unable to close the browser
             }
+
+        }
+
+
+        public static ApplicationManager GetInstance()
+        {
+            if (!app.IsValueCreated)
+            {
+                ApplicationManager newInstanse = new ApplicationManager();
+                newInstanse.Navigator.GoToHomePage();
+                app.Value = newInstanse;
+                
+            }
+            return app.Value;
+        }
+
+        public IWebDriver Driver
+        {
+            get
+            {
+                return driver;
+            }
+
         }
 
         public LoginHelper Auth
@@ -81,5 +101,6 @@ namespace WebAaddressbookTests
             }
         }
     }
-       
 }
+       
+

@@ -12,8 +12,8 @@ namespace WebAaddressbookTests
         private string firstname;
         private string lastname;
         //значения по умолчанию можно и не указывать
-        //private string middlename = "";
-        //private string nickname = "";
+        private string middlename = "";
+        private string nickname = "";
 
         //создаем конструктор для класса ContactData
         public ContactData(string firstname, string lastname)
@@ -44,6 +44,19 @@ namespace WebAaddressbookTests
                 lastname = value;
             }
         }
+
+        public string Middlename
+        {
+            get
+            {
+                return middlename;
+            }
+            set
+            {
+                lastname = value;
+            }
+        }
+
     }
 
 }

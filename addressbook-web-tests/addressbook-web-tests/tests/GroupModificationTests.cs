@@ -8,15 +8,15 @@ using NUnit.Framework;
 namespace WebAaddressbookTests
 {
     [TestFixture]
-    public class GroupModificationTests:TestBase
+    public class GroupModificationTests:AuthTestBase
     {
         [Test]
         public void GroupModificationTest()
         {
 
-            GroupData newData= new GroupData("676767");
-            newData.Header = "090909";
-            newData.Footer = "00000";
+            GroupData newData= new GroupData("groupWithNull");
+            newData.Header = null;
+            newData.Footer = null;
             app.Groups.Modify(1,newData);
            
         }

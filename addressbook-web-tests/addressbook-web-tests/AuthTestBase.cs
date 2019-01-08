@@ -1,11 +1,14 @@
 ﻿using NUnit.Framework;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//базовый класс для всех тестов которые требуют входа в систему
 namespace WebAaddressbookTests
 {
-    public class TestBase
+    public class AuthTestBase:TestBase
     {
-        protected ApplicationManager app;
-
         [SetUp]
         public void SetupTest()
         {
@@ -13,6 +16,5 @@ namespace WebAaddressbookTests
             app = ApplicationManager.GetInstance();
             app.Auth.Login(new AccountData("admin", "secret"));
         }
-        
     }
 }

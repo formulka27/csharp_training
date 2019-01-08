@@ -65,22 +65,24 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AuthTestBase.cs" />
+    <Compile Include="TheTheory\Conditions.cs" />
     <Compile Include="Tests\ContactModificationTests.cs" />
     <Compile Include="Tests\ContactRemovalTests.cs" />
     <Compile Include="Tests\GroupModificationTests.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="appmanager\ApplicationManager.cs" />
-    <Compile Include="Circle.cs" />
+    <Compile Include="TheTheory\Circle.cs" />
     <Compile Include="model\ContactData.cs" />
     <Compile Include="appmanager\ContactHelper.cs" />
-    <Compile Include="Figura.cs" />
+    <Compile Include="TheTheory\Figura.cs" />
     <Compile Include="model\GroupData.cs" />
     <Compile Include="appmanager\GroupHelper.cs" />
     <Compile Include="Tests\GroupRemovalTests.cs" />
     <Compile Include="appmanager\HelperBase.cs" />
     <Compile Include="appmanager\LoginHelper.cs" />
     <Compile Include="appmanager\NavigationHelper.cs" />
-    <Compile Include="Square.cs" />
+    <Compile Include="TheTheory\Square.cs" />
     <Compile Include="Tests\TestBase.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,8 +91,6 @@
     <Compile Include="Tests\ContactCreationTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
