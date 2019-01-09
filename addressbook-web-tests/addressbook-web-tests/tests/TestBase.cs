@@ -7,7 +7,7 @@ namespace WebAaddressbookTests
         protected ApplicationManager app;
 
         [SetUp]
-        public void SetupTest()
+        public void SetupApplicationManager()
         {
             //          app = new ApplicationManager();
             app = ApplicationManager.GetInstance();

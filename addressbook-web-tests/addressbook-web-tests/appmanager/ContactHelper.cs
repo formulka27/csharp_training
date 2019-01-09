@@ -22,13 +22,21 @@ namespace WebAaddressbookTests
         }
 
         public ContactHelper ContactRemoval(int v)
+        //вариант 1 , выбираем по иконке  Edit ,тогда можно удалить без alert на странице Edit
+        //{
+        //    manager.Navigator.VerifyHomePage();
+        //    EditContact(v);
+        //    RemoveContact();            
+        //    manager.Navigator.VerifyHomePage();
+        //    return this;
+        //}
+        //вариант 2, выбираем по checkbox , тогда удаляется на номе и с alert.
         {
             manager.Navigator.VerifyHomePage();
             SelectContact(v);
             RemoveContact();
             CloseAlert();
             manager.Navigator.VerifyHomePage();
-
             return this;
         }
         public ContactHelper ModifyContact(int v, ContactData newData)
@@ -49,8 +57,15 @@ namespace WebAaddressbookTests
 
         public ContactHelper EditContact(int v)
         {
-          //driver.FindElement(By.XPath($"//a[@href='edit.php?id=9']")).Click();
-            driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            //click on the pencil icon
+             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+              return this;
+        }
+        public ContactHelper SelectContact(int v)
+        {
+            //click on check box on the left
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input")).Click();
+
             return this;
         }
 
@@ -87,10 +102,5 @@ namespace WebAaddressbookTests
             return this;
         }
 
-        public ContactHelper SelectContact(int v)
-        {
-            driver.FindElement(By.Id("29")).Click();
-            return this;
-        }
     }
 }
