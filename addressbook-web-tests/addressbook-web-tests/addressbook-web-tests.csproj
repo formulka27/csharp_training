@@ -65,8 +65,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AuthTestBase.cs" />
-    <Compile Include="LoginTests.cs" />
+    <Compile Include="appmanager\AuthTestBase.cs" />
+    <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="TheTheory\Conditions.cs" />
     <Compile Include="Tests\ContactModificationTests.cs" />
     <Compile Include="Tests\ContactRemovalTests.cs" />

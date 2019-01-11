@@ -46,7 +46,7 @@ namespace WebAaddressbookTests
             if (IsLoggedIn())
                 {
                 driver.FindElement(By.LinkText("Logout")).Click();
-            }
+                 }
             
         }
     }

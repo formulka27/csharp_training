@@ -25,7 +25,7 @@ namespace WebAaddressbookTests
         //вариант 1 , выбираем по иконке  Edit ,тогда можно удалить без alert на странице Edit
         //{
         //    manager.Navigator.VerifyHomePage();
-        //    EditContact(v);
+        //    EditContact();
         //    RemoveContact();            
         //    manager.Navigator.VerifyHomePage();
         //    return this;
@@ -33,7 +33,7 @@ namespace WebAaddressbookTests
         //вариант 2, выбираем по checkbox , тогда удаляется на номе и с alert.
         {
             manager.Navigator.VerifyHomePage();
-            SelectContact(v);
+            SelectContact();
             RemoveContact();
             CloseAlert();
             manager.Navigator.VerifyHomePage();
@@ -43,7 +43,7 @@ namespace WebAaddressbookTests
         {
             
             manager.Navigator.VerifyHomePage();
-            EditContact(v);
+            EditContact();
             FillNewContactForm(newData);
             SubmitContactModification();
             return this;
@@ -55,13 +55,13 @@ namespace WebAaddressbookTests
             return this;
         }
 
-        public ContactHelper EditContact(int v)
+        public ContactHelper EditContact()
         {
             //click on the pencil icon
              driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
               return this;
         }
-        public ContactHelper SelectContact(int v)
+        public ContactHelper SelectContact()
         {
             //click on check box on the left
             driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input")).Click();

@@ -15,17 +15,32 @@ namespace WebAaddressbookTests
 //navigate to the home page
             public void GoToHomePage()
         {
+            if (driver.Url == baseURL + "/addressbook")
+            {
+                return;
+            }
+              
             driver.Navigate().GoToUrl(baseURL + "/addressbook/");
         }
 //navigate to the group page
         public void GoToGroupsPage()
         {
+            if (driver.Url==baseURL + "/addressbook/group.php"
+                && IsElementPresent(By.Name("new")))
+                {
+                return;
+                  }
             driver.FindElement(By.LinkText("groups")).Click();
         }
 //navigate to the contact page
         public void GoToNewContactPage()
         {
-            driver.FindElement(By.LinkText("add new")).Click();
+             if (driver.Url == baseURL + "/addressbook/edit.php"
+                && IsElementPresent(By.LinkText("add new")))
+            {
+                return;
+            }
+              driver.FindElement(By.LinkText("add new")).Click();
         }
 //navigate to Home to make sure we can work with contacts
         public void VerifyHomePage()
