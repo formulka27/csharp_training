@@ -58,14 +58,32 @@ namespace WebAaddressbookTests
         public ContactHelper EditContact()
         {
             //click on the pencil icon
-             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
-              return this;
+                 if (IsElementPresent(By.XPath("//img[@alt='Edit']")))
+                  {
+                driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+                return this;
+                  }
+            ////there is no contact on the page , create the empty
+            CreationEmptyContact();
+            return this;
         }
+
+        private void CreationEmptyContact()
+        {
+            manager.Navigator.GoToNewContactPage();
+            SubmitContactCreation();
+            manager.Navigator.VerifyHomePage();
+        }
+
         public ContactHelper SelectContact()
         {
             //click on check box on the left
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input")).Click();
-
+            if (IsElementPresent(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input")))
+            {
+                driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input")).Click();
+            }
+            //there is no contact on the page , create the empty
+            CreationEmptyContact();
             return this;
         }
 

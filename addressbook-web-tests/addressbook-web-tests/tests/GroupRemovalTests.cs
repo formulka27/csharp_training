@@ -8,7 +8,7 @@ namespace WebAaddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            app.Groups.Remove(2);
+            app.Groups.Remove(1);
         }
     }
 }

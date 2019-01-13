@@ -34,7 +34,7 @@ namespace WebAaddressbookTests
                 driver.FindElement(locator).Clear();
                 driver.FindElement(locator).SendKeys(text);
             }
-        }
+         } 
 
     }
 }

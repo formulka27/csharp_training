@@ -14,7 +14,7 @@ namespace WebAaddressbookTests
         public void GroupModificationTest()
         {
 
-            GroupData newData= new GroupData("groupWithNull");
+            GroupData newData= new GroupData("Modification");
             newData.Header = null;
             newData.Footer = null;
             app.Groups.Modify(1,newData);

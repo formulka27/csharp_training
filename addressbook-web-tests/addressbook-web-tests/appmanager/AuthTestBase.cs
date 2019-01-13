@@ -13,7 +13,7 @@ namespace WebAaddressbookTests
         public void SetupLogin()
         {
             //          app = new ApplicationManager();
-           // app = ApplicationManager.GetInstance();
+            app = ApplicationManager.GetInstance();
             app.Auth.Login(new AccountData("admin", "secret"));
         }
     }

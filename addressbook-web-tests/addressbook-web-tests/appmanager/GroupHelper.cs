@@ -1,11 +1,14 @@
 ﻿using System;
 using OpenQA.Selenium;
+using System.Text.RegularExpressions;
+using WebAaddressbookTests;
 
 namespace WebAaddressbookTests
 {
     public class GroupHelper:HelperBase
     {
-        
+
+
         public GroupHelper(ApplicationManager manager) : base(manager)
         {
         }
@@ -21,7 +24,7 @@ namespace WebAaddressbookTests
 
         public GroupHelper Modify(int p, GroupData newData)
         {
-            manager.Navigator.GoToGroupsPage();
+           manager.Navigator.GoToGroupsPage();
             SelectGroup(p);
             InitGroupModification();
             FillGroupForm(newData);
@@ -44,19 +47,20 @@ namespace WebAaddressbookTests
 
         public GroupHelper InitGroupCreation()
         {
+
             driver.FindElement(By.Name("new")).Click();
             return this;
         }
 
         public GroupHelper FillGroupForm(GroupData group)
         {
-            Type(By.Name("group_name"), group.Name);
-            Type(By.Name("group_header"), group.Header);
-            Type(By.Name("group_footer"),group.Footer);
-           
+        
+                Type(By.Name("group_name"), group.Name);
+                Type(By.Name("group_header"), group.Header);
+                Type(By.Name("group_footer"), group.Footer);
+          
             return this;
-        }
-           
+        }   
         
         public GroupHelper SubmitGroupCreation()
         {
@@ -72,9 +76,17 @@ namespace WebAaddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            if (IsElementPresent(By.Name("selected[]")))
+                {
+                  driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+                 }
+            //create a new empty group if it does not exists
+            //Алексей , я хотела найти способ как запустить CreationGroupTest из этой точки , не получилось
+            driver.FindElement(By.Name("new")).Click();
+            driver.FindElement(By.Name("submit")).Click();
+            driver.FindElement(By.LinkText("groups")).Click();
             return this;
-        }
+          }
 
         public GroupHelper RemoveGroup()
         {
