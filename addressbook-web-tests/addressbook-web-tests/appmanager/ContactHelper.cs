@@ -21,7 +21,7 @@ namespace WebAaddressbookTests
             return this;
         }
 
-        public ContactHelper ContactRemoval(int v)
+        public ContactHelper ContactRemoval()
         //вариант 1 , выбираем по иконке  Edit ,тогда можно удалить без alert на странице Edit
         //{
         //    manager.Navigator.VerifyHomePage();
@@ -39,7 +39,7 @@ namespace WebAaddressbookTests
             manager.Navigator.VerifyHomePage();
             return this;
         }
-        public ContactHelper ModifyContact(int v, ContactData newData)
+        public ContactHelper ModifyContact(ContactData newData)
         {
             
             manager.Navigator.VerifyHomePage();

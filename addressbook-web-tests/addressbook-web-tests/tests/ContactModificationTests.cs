@@ -18,7 +18,7 @@ namespace WebAaddressbookTests
 
             ContactData newData = new ContactData("676767","llkklklklkl");
           
-            app.Contacts.ModifyContact(1,newData);
+            app.Contacts.ModifyContact(newData);
 
         }
 
