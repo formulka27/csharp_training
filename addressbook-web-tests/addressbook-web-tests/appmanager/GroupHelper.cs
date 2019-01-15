@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using System.Text.RegularExpressions;
 using WebAaddressbookTests;
+using System.Collections.Generic;
 
 namespace WebAaddressbookTests
 {
@@ -21,6 +22,8 @@ namespace WebAaddressbookTests
             ReturnToGroupsPage();
             return this;
         }
+
+       
 
         public GroupHelper Modify(int p, GroupData newData)
         {
@@ -105,5 +108,20 @@ namespace WebAaddressbookTests
             driver.FindElement(By.Name("edit")).Click();
             return this;
         }
+
+
+        public List<GroupData> GetGroupList()
+        {
+            List < GroupData > groups = new List<GroupData>();
+            manager.Navigator.GoToGroupsPage();
+            ICollection<IWebElement> elements=driver.FindElements(By.CssSelector("span.group"));
+            foreach(IWebElement element in elements)
+            {
+               //GroupData group = new GroupData(element.Text);
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
+        }
+
     }
 }
