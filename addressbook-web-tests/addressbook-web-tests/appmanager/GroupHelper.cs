@@ -79,15 +79,7 @@ namespace WebAaddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
-            if (IsElementPresent(By.Name("selected[]")))
-                {
-                  driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
-                 }
-            //create a new empty group if it does not exists
-            //Алексей , я хотела найти способ как запустить CreationGroupTest из этой точки , не получилось
-            driver.FindElement(By.Name("new")).Click();
-            driver.FindElement(By.Name("submit")).Click();
-            driver.FindElement(By.LinkText("groups")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
           }
 
@@ -108,8 +100,14 @@ namespace WebAaddressbookTests
             driver.FindElement(By.Name("edit")).Click();
             return this;
         }
+        //проверяем , хотя бы одна группа существует
+        public bool IsGroupPresent()
+        {
+            manager.Navigator.GoToGroupsPage();
+            return IsElementPresent(By.Name("selected[]"));
+         }
 
-
+       
         public List<GroupData> GetGroupList()
         {
             List < GroupData > groups = new List<GroupData>();

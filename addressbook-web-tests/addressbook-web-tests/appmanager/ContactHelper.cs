@@ -41,7 +41,7 @@ namespace WebAaddressbookTests
         }
         public ContactHelper ModifyContact(ContactData newData)
         {
-            
+
             manager.Navigator.VerifyHomePage();
             EditContact();
             FillNewContactForm(newData);
@@ -58,33 +58,17 @@ namespace WebAaddressbookTests
         public ContactHelper EditContact()
         {
             //click on the pencil icon
-                 if (IsElementPresent(By.XPath("//img[@alt='Edit']")))
-                  {
-                driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
-                return this;
-                  }
-            ////there is no contact on the page , create the empty
-            CreationEmptyContact();
+            driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
             return this;
         }
-
-        private void CreationEmptyContact()
-        {
-            manager.Navigator.GoToNewContactPage();
-            SubmitContactCreation();
-            manager.Navigator.VerifyHomePage();
-        }
+           
 
         public ContactHelper SelectContact()
         {
             //click on check box on the left
-            if (IsElementPresent(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input")))
-            {
+           
                 driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input")).Click();
-            }
-            //there is no contact on the page , create the empty
-            CreationEmptyContact();
-            return this;
+                return this;
         }
 
         //for contacts
@@ -119,6 +103,14 @@ namespace WebAaddressbookTests
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
         }
+        //проверяем , хотя бы один контакт существует на нужной странице
+        public bool IsContactPresent()
+        {
+            manager.Navigator.GoToNewContactPage();
+            return IsElementPresent(By.XPath("//img[@alt='Edit']"));
+        }
 
+     }
     }
-}
+
+

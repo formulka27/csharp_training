@@ -19,8 +19,9 @@ namespace WebAaddressbookTests
             //совершаем действия 
             AccountData account = new AccountData("admin", "secret");          
             app.Auth.Login(account);
-            //проверка 
+            //проверяем чего натворили
             Assert.IsTrue(app.Auth.IsLoggedIn(account));
+
 
         }
         [Test]
@@ -29,7 +30,7 @@ namespace WebAaddressbookTests
             //Готовим тестовую ситуацию
             app.Auth.Logout();
             //совершаем действия 
-            AccountData account = new AccountData("admin", "55555");
+            AccountData account = new AccountData("ooo", "55555");
             app.Auth.Login(account);
             //проверка 
             Assert.IsFalse(app.Auth.IsLoggedIn(account));
