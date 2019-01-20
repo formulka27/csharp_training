@@ -106,11 +106,12 @@ namespace WebAaddressbookTests
         //проверяем , хотя бы один контакт существует на нужной странице
         public bool IsContactPresent()
         {
-            manager.Navigator.GoToNewContactPage();
+            
+            manager.Navigator.GoToHomePage();
             return IsElementPresent(By.XPath("//img[@alt='Edit']"));
         }
 
      }
-    }
+}
 
 

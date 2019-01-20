@@ -17,16 +17,13 @@ namespace WebAaddressbookTests
             //Готовим тестовую ситуацию
             if (app.Contacts.IsContactPresent() == false)
             {                
-                ContactData contact = new ContactData("admin", "secret");
+                ContactData contact = new ContactData("Contactadmin", "secret");
                 app.Contacts.CreateContact(contact);
                 //проверка 
                 Assert.IsTrue(app.Contacts.IsContactPresent());
             }
             ////совершаем действия 
             app.Contacts.ContactRemoval();
-            Assert.IsFalse(app.Contacts.IsContactPresent());
-
-        }
-
-    }
+            }
+            }
 }
