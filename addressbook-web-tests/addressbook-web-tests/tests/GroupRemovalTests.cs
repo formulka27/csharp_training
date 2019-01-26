@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace WebAaddressbookTests
 {
@@ -10,19 +11,33 @@ namespace WebAaddressbookTests
         {
             if (app.Groups.IsGroupPresent() == false)
             {
-                // если группы нет , то создаем ее предварительно с любыми параметрами
+                // если старой группы нет , то создаем ее предварительно с любыми параметрами
                 GroupData nogroup = new GroupData("GroupForDeleting");
                 nogroup.Header = null;
                 nogroup.Footer = null;
+
                 app.Groups.Create(nogroup);
                 Assert.IsTrue(app.Groups.IsGroupPresent());
             }
-            //если существует - удаляем первую
-            app.Groups.Remove(1);
-           }
-      
+            //если существует только одна  - удаляем первую
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+                
+            app.Groups.Remove(0);
+            
+        //    Assert.IsTrue(app.Groups.IsGroupPresent());
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups.RemoveAt(0);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+
+
+
         }
+
+    }
 }
+
 
 
    

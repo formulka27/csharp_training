@@ -79,7 +79,8 @@ namespace WebAaddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+           
             return this;
           }
 
@@ -107,18 +108,21 @@ namespace WebAaddressbookTests
             return IsElementPresent(By.Name("selected[]"));
          }
 
-       
+  //метод возвращает список групп     
         public List<GroupData> GetGroupList()
         {
-            List < GroupData > groups = new List<GroupData>();
+            //готовим пустой список элементов типа GroupData
+            List< GroupData > groups = new List<GroupData>();
             manager.Navigator.GoToGroupsPage();
+            //сохраняем найденный список элементов в коллекцию объектов IWebElement
             ICollection<IWebElement> elements=driver.FindElements(By.CssSelector("span.group"));
+            //превращаем все элементы типа IWebElement  в нужные нам объект Типа GroupData
             foreach(IWebElement element in elements)
             {
                //GroupData group = new GroupData(element.Text);
                 groups.Add(new GroupData(element.Text));
             }
-            return groups;
+            return groups;//возвращаем список
         }
 
     }

@@ -21,6 +21,33 @@ namespace WebAaddressbookTests
             return this;
         }
 
+        internal int GetContactsCount()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        //метод возвращает список контактов     
+        public List<ContactData> GetContactList()
+        {
+            //готовим пустой список элементов типа ContactData
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToHomePage();
+            //сохраняем найденный список элементов в коллекцию объектов IWebElement
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name='entry']"));
+            //превращаем все элементы типа IWebElement  в нужные нам объект Типа ContactData
+            foreach (IWebElement element in elements)
+            {
+                //собственно список
+                //string Lastname = element.FindElement(By.XPath(".//td[2]")).Text;// kizzzzzz
+                ////*[@id="maintable"]/tbody/tr[2]/td[3] //Irina =firstname
+
+                contacts.Add(new ContactData(element.FindElement(By.XPath(".//td[3]")).Text, element.FindElement(By.XPath(".//td[2]")).Text));
+            }
+            return contacts;//возвращаем список
+        }
+
+
         public ContactHelper ContactRemoval()
         //вариант 1 , выбираем по иконке  Edit ,тогда можно удалить без alert на странице Edit
         //{

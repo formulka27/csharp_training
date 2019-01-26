@@ -13,6 +13,7 @@ namespace WebAaddressbookTests
         [Test]
         public void GroupModificationTest()
         {
+            
             if (app.Groups.IsGroupPresent() == false)
             {
                 // если группы нет , то создаем ее предварительно с любыми параметрами
@@ -23,12 +24,20 @@ namespace WebAaddressbookTests
                 Assert.IsTrue(app.Groups.IsGroupPresent());
             }
             //если существует - модифицируем первую
-        
-               GroupData newData= new GroupData("Modification");
-                  newData.Header = null;
-                  newData.Footer = null;
-                  app.Groups.Modify(1,newData);
-              Assert.IsTrue(app.Groups.IsGroupPresent());
+
+            GroupData newData = new GroupData("New Modification");
+            newData.Header = null;
+            newData.Footer = null;
+      
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            app.Groups.Modify(0, newData);
+            Assert.IsTrue(app.Groups.IsGroupPresent());
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups[0].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
      
         }

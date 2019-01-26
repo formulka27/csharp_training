@@ -30,7 +30,7 @@ namespace WebAaddressbookTests
             //Готовим тестовую ситуацию
             app.Auth.Logout();
             //совершаем действия 
-            AccountData account = new AccountData("ooo", "55555");
+            AccountData account = new AccountData("0ooo", "55555");
             app.Auth.Login(account);
             //проверка 
             Assert.IsFalse(app.Auth.IsLoggedIn(account));

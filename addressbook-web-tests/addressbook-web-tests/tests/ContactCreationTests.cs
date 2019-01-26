@@ -3,6 +3,7 @@ using System.Text;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using System.Collections.Generic;
 
 namespace WebAaddressbookTests
 {
@@ -13,9 +14,17 @@ namespace WebAaddressbookTests
         public void ContactCreationTest()
         {
             ContactData contact = new ContactData("Irina", "KIZZZZZZooooo");
-            
-           
+            List<ContactData> oldContacts = app.Contacts.GetContactList();       
             app.Contacts.CreateContact(contact);
+
+
+         //   Assert.AreEqual(oldContacts.Count+1,app.Contacts.GetContactsCount());
+            //return the list of contacts after the action -add
+            List<ContactData> newContacts = app.Contacts.GetContactList(); 
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
             
         }
         [Test]
