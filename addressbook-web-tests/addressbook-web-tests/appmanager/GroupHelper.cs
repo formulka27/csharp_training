@@ -36,6 +36,8 @@ namespace WebAaddressbookTests
             return this;
         }
 
+       
+
         public GroupHelper Remove(int p)
         {
             manager.Navigator.GoToGroupsPage();
@@ -68,6 +70,7 @@ namespace WebAaddressbookTests
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            groupCashe = null;
             return this;
         }
 
@@ -87,12 +90,14 @@ namespace WebAaddressbookTests
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.Name("delete")).Click();
+            groupCashe = null;
             return this;
         }
         public GroupHelper SubmitGroupModification()
         {
 
             driver.FindElement(By.Name("update")).Click();
+            groupCashe = null;
             return this;
         }
 
@@ -101,6 +106,9 @@ namespace WebAaddressbookTests
             driver.FindElement(By.Name("edit")).Click();
             return this;
         }
+        //поле , где хранится запомненный список групп
+        private List<GroupData> groupCashe = null;
+
         //проверяем , хотя бы одна группа существует
         public bool IsGroupPresent()
         {
@@ -111,18 +119,27 @@ namespace WebAaddressbookTests
   //метод возвращает список групп     
         public List<GroupData> GetGroupList()
         {
-            //готовим пустой список элементов типа GroupData
-            List< GroupData > groups = new List<GroupData>();
-            manager.Navigator.GoToGroupsPage();
-            //сохраняем найденный список элементов в коллекцию объектов IWebElement
-            ICollection<IWebElement> elements=driver.FindElements(By.CssSelector("span.group"));
-            //превращаем все элементы типа IWebElement  в нужные нам объект Типа GroupData
-            foreach(IWebElement element in elements)
+            //если кэш не заполнен еще, то заполняем 
+            if (groupCashe==null)
             {
-               //GroupData group = new GroupData(element.Text);
-                groups.Add(new GroupData(element.Text));
+
+                groupCashe = new List<GroupData>();
+                manager.Navigator.GoToGroupsPage();
+                //сохраняем найденный список элементов в коллекцию объектов IWebElement
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+                //превращаем все элементы типа IWebElement  в нужные нам объект Типа GroupData
+                foreach (IWebElement element in elements)
+                {
+                    //GroupData group = new GroupData(element.Text);
+                    groupCashe.Add(new GroupData(element.Text));
+                }
             }
-            return groups;//возвращаем список
+            // return groupCashe;//возвращаем кэш после того как все загружено
+            return new List<GroupData>(groupCashe);//возвращаем не кэш ,  а его копию,потому как злые дядьки могут его испортить доюавлением или удалением элемента из кэша
+            }
+        public int GetGroupCount()
+        {
+           return driver.FindElements(By.CssSelector("span.group")).Count;
         }
 
     }

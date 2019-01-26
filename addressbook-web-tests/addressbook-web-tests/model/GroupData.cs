@@ -19,6 +19,8 @@ namespace WebAaddressbookTests
             this.name = name;
         }
 //сравненниев 2 этапа , 1)hashcode2)equils
+//хэш это просто число ,строится он быстро , у равных объектов хэши равные ,  а у разных чаще всего разные
+//короче, если хэши разные, то объекты 100% разные
 
         public override int GetHashCode()
         {

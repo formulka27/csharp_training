@@ -27,6 +27,7 @@ namespace WebAaddressbookTests
             ////совершаем действия 
             List<ContactData> oldContacts = app.Contacts.GetContactList();//пустой список
             app.Contacts.ContactRemoval();//удаляем первый контакт из старой группы
+            Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactsCount());//быстрая проверка
             List<ContactData> newContacts = app.Contacts.GetContactList();//получаем список контактов с уже удаленным контактом
             oldContacts.RemoveAt(0);//количество должно быть одинаковым => удаляем удаленный контакт
             oldContacts.Sort();
