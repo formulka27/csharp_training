@@ -7,34 +7,32 @@ using System.Threading.Tasks;
 namespace WebAaddressbookTests
 
 {
-    public class GroupData:IEquatable<GroupData>,IComparable<GroupData>
+    public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         //объявляем поля
-        private string name;
-        private string header ="";
-        private string footer = "";
+        //        private string name;
         //создаем конструктор для объекта группы
         public GroupData(string name)
         {
-            this.name = name;
+            Name = name;
         }
-//сравненниев 2 этапа , 1)hashcode2)equils
-//хэш это просто число ,строится он быстро , у равных объектов хэши равные ,  а у разных чаще всего разные
-//короче, если хэши разные, то объекты 100% разные
+        //сравненниев 2 этапа , 1)hashcode2)equils
+        //хэш это просто число ,строится он быстро , у равных объектов хэши равные ,  а у разных чаще всего разные
+        //короче, если хэши разные, то объекты 100% разные
 
         public override int GetHashCode()
         {
             return Name.GetHashCode();
         }
-   //возвращает строковое представление объектов типа GroupData(имя группы)     
+        //возвращает строковое представление объектов типа GroupData(имя группы)     
         public override string ToString()
         {
-            return "name="+Name;
+            return "name=" + Name;
         }
 
         public int CompareTo(GroupData other)
         {
-            if (Object.ReferenceEquals(other,null))
+            if (Object.ReferenceEquals(other, null))
             {
                 return 1; //если второй элемент ,с которым сравниваем =null, т.е. наш текущий объект больше 
             }
@@ -45,7 +43,7 @@ namespace WebAaddressbookTests
 
         public bool Equals(GroupData other)
         {
-            if (Object.ReferenceEquals(other,null))
+            if (Object.ReferenceEquals(other, null))
             {
                 return false;
             }
@@ -57,40 +55,28 @@ namespace WebAaddressbookTests
 
         }
 
-        //свойства группы Name, Footer, Header     
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
-            }
-        }
-        public string Header
-        {
-            get
-            {
-                return header;
-            }
-            set
-            {
-                header = value;
-            }
-        }
-        public string Footer
-        {
-            get
-            {
-                return footer;
-            }
-            set
-            {
-                footer = value;
-            }
-        }
+        //свойства группы Name, Footer, Header    
+        //если методы обращения к свойствам выглядят примитивно  можно использовать методы с автоматической  идентификацией
+        //public string Name
+        //{
+        //    get
+        //    {
+        //        return name;
+        //    }
+        //    set
+        //    {
+        //        name = value;
+        //    }
+        //}
+        //идентично 
+        public string Name { get; set; }
+        //еще и объявление поля строка 13 можно убрать , оно создается автоматически при вызове метода
+
+        public string Header { get; set; }
+
+        public string Footer { get; set; }
+        public string Id { get; set; }
+    }      
 
     }
-}
+
