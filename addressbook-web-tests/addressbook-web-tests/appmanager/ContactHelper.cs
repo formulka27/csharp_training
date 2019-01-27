@@ -38,15 +38,19 @@ namespace WebAaddressbookTests
                 //превращаем все элементы типа IWebElement  в нужные нам объект Типа ContactData
                 foreach (IWebElement element in elements)
                 {
-                    //собственно список
-                    //string Lastname = element.FindElement(By.XPath(".//td[2]")).Text;// kizzzzzz
-                    ////*[@id="maintable"]/tbody/tr[2]/td[3] //Irina =firstname
+                   ContactData contact = new ContactData(element.FindElement(By.XPath(".//td[3]")).Text, element.FindElement(By.XPath(".//td[2]")).Text)
+                    { Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    };
+                    
+                   contactCashe.Add(contact);
 
-                    contactCashe.Add(new ContactData(element.FindElement(By.XPath(".//td[3]")).Text, element.FindElement(By.XPath(".//td[2]")).Text));
+               //     contactCashe.Add(new ContactData(element.FindElement(By.XPath(".//td[3]")).Text, element.FindElement(By.XPath(".//td[2]")).Text));
+                    
                 }
-                }
+            }
                 return new List<ContactData>(contactCashe);//возвращаем список
             }
+
         
 
 

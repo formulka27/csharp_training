@@ -9,22 +9,22 @@ namespace WebAaddressbookTests
     public class ContactData: IEquatable<ContactData>, IComparable<ContactData>
     {
         //объявляем поля
-        private string firstname;
-        private string lastname;
-        //значения по умолчанию можно и не указывать
-        private string middlename = "";
-        private string nickname = "";
+        //private string firstname;
+        //private string lastname;
+        ////значения по умолчанию можно и не указывать
+        //private string middlename = "";
+        //private string nickname = "";
 
         //создаем конструктор для класса ContactData
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
         //возвращает строковое представление объектов типа ContactData(имя,фамилия)     
         public override string ToString()
         {
-            return "Lastname" + lastname + "Firtsname=" + firstname;
+            return "Lastname" + Lastname + "Firtsname=" + Firstname;
                 
         }
         public override int GetHashCode()
@@ -75,41 +75,11 @@ namespace WebAaddressbookTests
 
 
 
-        //описываем свойства объекта , их два
-        public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
-        public string Lastname
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }
-
-        public string Middlename
-        {
-            get
-            {
-                return middlename;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }
+        //описываем свойства объекта 
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public string Middlename { get; set; }
+        public string Id { get; set; }
 
     }
 

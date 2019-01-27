@@ -130,10 +130,6 @@ namespace WebAaddressbookTests
                 //превращаем все элементы типа IWebElement  в нужные нам объект Типа GroupData
                 foreach (IWebElement element in elements)
                 {
-                    //GroupData group = new GroupData(element.Text);
-                    // element.FindElement(By.TagName("input")).GetAttribute("value");//получаем значение ID из браузера
-                    // group.Id = element.FindElement(By.TagName("input")).GetAttribute("value");//присваиваем свойство
-                    //  groupCashe.Add(group);//груупу с полученным идентификатором добавляем в список
                     groupCashe.Add(new GroupData(element.Text)
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
@@ -143,6 +139,8 @@ namespace WebAaddressbookTests
             // return groupCashe;//возвращаем кэш после того как все загружено
             return new List<GroupData>(groupCashe);//возвращаем не кэш ,  а его копию,потому как злые дядьки могут его испортить доюавлением или удалением элемента из кэша
             }
+
+        //метод возвращает количество групп
         public int GetGroupCount()
         {
            return driver.FindElements(By.CssSelector("span.group")).Count;
