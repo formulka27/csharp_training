@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace WebAaddressbookTests
 {
     public class ContactData: IEquatable<ContactData>, IComparable<ContactData>
     {
+        public string allPhones;
+
         //объявляем поля
         //private string firstname;
         //private string lastname;
@@ -78,6 +81,45 @@ namespace WebAaddressbookTests
         //описываем свойства объекта 
         public string Firstname { get; set; }
         public string Lastname { get; set; }
+        public string Address { get; set; }
+        public string HomePhone { get; set; }
+        public string WorkPhone { get; set; }
+        public string MobilePhone { get; set; }
+
+        public string AllPhones
+        {
+            get
+            {
+                if (allPhones != null || allPhones == "")
+                {
+                    return allPhones;
+                }
+                //если пусто хоть в одном , тогда клеим в кучку, очистив предварительно от мусора
+                return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+            }
+            set
+            {
+                allPhones = value;
+            }
+}
+
+        //метод удаляет все нежелательные символы
+        private string CleanUp(string phone)
+        {
+            if(phone==null || phone=="")
+            {
+                return "";
+            }
+
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "")+"\r\n";
+
+
+        }
+
+        //public string FirstEmail { get; set; }
+        //public string SecondEmail { get; set; }
+        //public string ThirdEmail { get; set; }
+        //public string AllEmails { get; set; }
         public string Middlename { get; set; }
         public string Id { get; set; }
 

@@ -21,7 +21,10 @@ namespace WebAaddressbookTests
             return this;
         }
 
-       
+      
+
+      
+
         //поле , где хранится запомненный список контактов
         private List<ContactData> contactCashe = null;
 
@@ -146,11 +149,69 @@ namespace WebAaddressbookTests
             manager.Navigator.GoToHomePage();
             return IsElementPresent(By.XPath("//img[@alt='Edit']"));
         }
-
+        //сколько контактов на странице
         internal int GetContactsCount()
         {
             return driver.FindElements(By.CssSelector("tr[name='entry']")).Count;
         }
+
+        internal ContactData GetContactInformationFromEditForm(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactModification(0);
+            string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
+            string firstemail = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string secondemail = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string thirdemail = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+           
+            return new ContactData(firstname, lastname)
+            //надо указать дополнительные проперти
+            {
+                Address = address,
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
+                WorkPhone = workPhone,
+                //FirstEmail=firstemail,
+                //SecondEmail=secondemail,
+                //ThirdEmail =thirdemail
+            };
+          
+        }
+        
+        
+        public void InitContactModification(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[7]
+                .FindElement(By.TagName("a")).Click();
+            
+        }
+        internal ContactData GetContactInformationFromTable(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"));//сохраняем все наши ячейки в массив (для меня это матрица)
+            string lastname = cells[1].Text;
+            string firstname = cells[2].Text;
+            string address = cells[3].Text;
+         //   string allEmails = cells[4].Text;
+            string allPhones = cells[5].Text;
+
+            return new ContactData(firstname, lastname)
+            //надо указать дополнительные свойства
+            {
+                Address = address,
+                AllPhones =allPhones,
+              //  AllEmails=allEmails
+            };
+
+          }
 
     }
 }

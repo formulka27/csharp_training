@@ -31,13 +31,24 @@ namespace WebAaddressbookTests
         //проверяем , что залогинен именно тот юзер ,который указан в account.Username
         public bool IsLoggedIn(AccountData account)
         {
+            //return IsLoggedIn()
+            //    && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text
+            //                                                == "(" + account.Username + ")";
             return IsLoggedIn()
-                && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text
-                                                            == "(" + account.Username + ")";
+                && GetLoggetUserName()== account.Username;
+
         }
-//проверяем , что мы имеем какую то открытую сессию уже , атрибут name=logout
+
+        public string GetLoggetUserName()
+        {
+            string text = driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;//Берем то , что на главной странице в круглых скобках
+            return text.Substring(1, text.Length-2);
+        }
+
+        //проверяем , что мы имеем какую то открытую сессию уже , атрибут name=logout
         public bool IsLoggedIn()
         {
+            
             return IsElementPresent(By.Name("logout"));
         }
 

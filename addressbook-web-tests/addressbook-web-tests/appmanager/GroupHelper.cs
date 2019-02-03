@@ -130,10 +130,27 @@ namespace WebAaddressbookTests
                 //превращаем все элементы типа IWebElement  в нужные нам объект Типа GroupData
                 foreach (IWebElement element in elements)
                 {
-                    groupCashe.Add(new GroupData(element.Text)
+                    // groupCashe.Add(new GroupData(element.Text)
+                    groupCashe.Add(new GroupData(null)//на первом проходе не берем
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     });
+                }
+                string allGroupsName = driver.FindElement(By.CssSelector("div#content form")).Text;//нашли элемент с идентификатором , внутри него форма,именно из нее и берем техт
+                
+                string[] parts = allGroupsName.Split('\n');  //получили массив с именами всех групп
+                int shift = groupCashe.Count - parts.Length;
+                for (int i=0; i<groupCashe.Count; i++ )
+                {
+                    if (i<shift)//если индекс меньше чем сдвиг , то прописывем пустое имя
+                    {
+                        groupCashe[i].Name = "";
+                    }
+                    else
+                    {
+                        groupCashe[i].Name = parts[i-shift].Trim();
+                    }
+                    
                 }
             }
             // return groupCashe;//возвращаем кэш после того как все загружено
