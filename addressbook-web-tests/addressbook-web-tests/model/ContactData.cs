@@ -1,13 +1,13 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAaddressbookTests
 {
-    public class ContactData: IEquatable<ContactData>, IComparable<ContactData>
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         public string allPhones;
 
@@ -28,7 +28,7 @@ namespace WebAaddressbookTests
         public override string ToString()
         {
             return "Lastname" + Lastname + "Firtsname=" + Firstname;
-                
+
         }
         public override int GetHashCode()
         {
@@ -45,7 +45,7 @@ namespace WebAaddressbookTests
             {
                 return true;
             }
-            return Lastname+Firstname == other.Lastname+Firstname;
+            return Lastname + Firstname == other.Lastname + Firstname;
         }
         //сравнение
         public int CompareTo(ContactData other)
@@ -73,8 +73,8 @@ namespace WebAaddressbookTests
             return -1;
 
         }
-        
-        
+
+
 
 
 
@@ -101,25 +101,25 @@ namespace WebAaddressbookTests
             {
                 allPhones = value;
             }
-}
-
+        }
+       
         //метод удаляет все нежелательные символы
         private string CleanUp(string phone)
         {
-            if(phone==null || phone=="")
+            if (phone == null || phone == "")
             {
                 return "";
             }
 
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "")+"\r\n";
-
+            //  return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            return Regex.Replace(phone,"[ -()]", "");
 
         }
 
-        //public string FirstEmail { get; set; }
-        //public string SecondEmail { get; set; }
-        //public string ThirdEmail { get; set; }
-        //public string AllEmails { get; set; }
+
+        public string FirstEmail { get; set; }
+        public string SecondEmail { get; set; }
+        public string ThirdEmail { get; set; }
         public string Middlename { get; set; }
         public string Id { get; set; }
 

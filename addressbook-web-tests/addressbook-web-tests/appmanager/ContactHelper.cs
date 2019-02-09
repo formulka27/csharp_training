@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using System.Text.RegularExpressions;
 
 namespace WebAaddressbookTests
 {
@@ -21,12 +22,13 @@ namespace WebAaddressbookTests
             return this;
         }
 
-      
 
-      
+
+
 
         //поле , где хранится запомненный список контактов
         private List<ContactData> contactCashe = null;
+       
 
         //метод возвращает список контактов     
         public List<ContactData> GetContactList()
@@ -41,22 +43,21 @@ namespace WebAaddressbookTests
                 //превращаем все элементы типа IWebElement  в нужные нам объект Типа ContactData
                 foreach (IWebElement element in elements)
                 {
-                   ContactData contact = new ContactData(element.FindElement(By.XPath(".//td[3]")).Text, element.FindElement(By.XPath(".//td[2]")).Text)
-                    { Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    ContactData contact = new ContactData(element.FindElement(By.XPath(".//td[3]")).Text, element.FindElement(By.XPath(".//td[2]")).Text)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     };
-                    
-                   contactCashe.Add(contact);
 
-               //     contactCashe.Add(new ContactData(element.FindElement(By.XPath(".//td[3]")).Text, element.FindElement(By.XPath(".//td[2]")).Text));
-                    
+                    contactCashe.Add(contact);
+
+                    //     contactCashe.Add(new ContactData(element.FindElement(By.XPath(".//td[3]")).Text, element.FindElement(By.XPath(".//td[2]")).Text));
+
                 }
             }
-                return new List<ContactData>(contactCashe);//возвращаем список
-            }
+            return new List<ContactData>(contactCashe);//возвращаем список
+        }
 
         
-
-
         public ContactHelper ContactRemoval()
         //вариант 1 , выбираем по иконке  Edit ,тогда можно удалить без alert на странице Edit
         //{
@@ -98,14 +99,14 @@ namespace WebAaddressbookTests
             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
             return this;
         }
-           
+
 
         public ContactHelper SelectContact()
         {
             //click on check box on the left
-           
-                driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input")).Click();
-                return this;
+
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input")).Click();
+            return this;
         }
 
         //for contacts
@@ -145,7 +146,7 @@ namespace WebAaddressbookTests
         //проверяем , хотя бы один контакт существует на нужной странице
         public bool IsContactPresent()
         {
-            
+
             manager.Navigator.GoToHomePage();
             return IsElementPresent(By.XPath("//img[@alt='Edit']"));
         }
@@ -154,7 +155,7 @@ namespace WebAaddressbookTests
         {
             return driver.FindElements(By.CssSelector("tr[name='entry']")).Count;
         }
-
+//проверяем информацию о контакте из формы Edit
         internal ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -170,7 +171,7 @@ namespace WebAaddressbookTests
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
-           
+
             return new ContactData(firstname, lastname)
             //надо указать дополнительные проперти
             {
@@ -178,20 +179,20 @@ namespace WebAaddressbookTests
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone = workPhone,
-                //FirstEmail=firstemail,
-                //SecondEmail=secondemail,
-                //ThirdEmail =thirdemail
+                FirstEmail=firstemail,
+                SecondEmail=secondemail,
+                ThirdEmail =thirdemail
             };
-          
+
         }
-        
-        
+
+//кликаем по карандашику , он же 7 элемент в строке
         public void InitContactModification(int index)
         {
             driver.FindElements(By.Name("entry"))[index]
                 .FindElements(By.TagName("td"))[7]
                 .FindElement(By.TagName("a")).Click();
-            
+
         }
         internal ContactData GetContactInformationFromTable(int index)
         {
@@ -200,20 +201,79 @@ namespace WebAaddressbookTests
             string lastname = cells[1].Text;
             string firstname = cells[2].Text;
             string address = cells[3].Text;
-         //   string allEmails = cells[4].Text;
+            //   string allEmails = cells[4].Text;
             string allPhones = cells[5].Text;
 
             return new ContactData(firstname, lastname)
             //надо указать дополнительные свойства
             {
                 Address = address,
-                AllPhones =allPhones,
-              //  AllEmails=allEmails
+                AllPhones = allPhones,
+                //  AllEmails=allEmails
             };
 
-          }
+        }
+
+        public int GetNumberOfSearchResults()
+
+        {
+            manager.Navigator.GoToHomePage();
+            string text=driver.FindElement(By.TagName("label")).Text;
+            Match m=new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
+        }
+        //получаем информацию со страницы Details
+        internal string GetContactInformationFromDetailsPage()
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactDetails(0);
+            string details = driver.FindElement(By.XPath("//*[@id='content']")).Text;
+            details =Regex.Replace(details, @"[\r\n ]", "");//удаляем все пробелы , тире и переводы строк
+            return details.Replace("M:", "").Replace("H:", "").Replace("W:", "");
+        }
+
+//кликаем по иконке человечка, она же 6 элемент в строке
+        private void InitContactDetails(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
+        }
+        ////проверяем информацию о контакте из формы Edit и клеим из нее строку как на странице Details 
+        internal string GetContactInformationFromFormToString()
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactModification(0);
+            string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string middlename = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+
+            string firstemail = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string secondemail = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string thirdemail = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            //if (homePhone != null || homePhone == "")
+            //{
+            //    return homePhone;
+            //}
+
+            string fromFormToString = firstname + middlename + lastname  +title +company+address + 
+                homePhone+mobilePhone+workPhone+ firstemail + secondemail + thirdemail ;
+            // return fromFormToString;
+            return Regex.Replace(fromFormToString, @"[\r\n ]", "");
+
+
+        }
 
     }
+
 }
 
 

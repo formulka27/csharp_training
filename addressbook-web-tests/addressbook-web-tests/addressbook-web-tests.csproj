@@ -66,7 +66,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="appmanager\AuthTestBase.cs" />
-    <Compile Include="ContactInformationTest.cs" />
+    <Compile Include="Tests\ContactInformationTest.cs" />
+    <Compile Include="SearchTest.cs" />
     <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="TheTheory\Conditions.cs" />
     <Compile Include="Tests\ContactModificationTests.cs" />
