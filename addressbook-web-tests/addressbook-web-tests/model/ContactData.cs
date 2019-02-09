@@ -10,6 +10,7 @@ namespace WebAaddressbookTests
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         public string allPhones;
+        public string allEmails;
 
         //объявляем поля
         //private string firstname;
@@ -111,17 +112,36 @@ namespace WebAaddressbookTests
                 return "";
             }
 
-            //  return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
-            return Regex.Replace(phone,"[ -()]", "");
+           return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+         //   return Regex.Replace(phone,"[ -()]", "")+"\r\n";
 
         }
-
-
         public string FirstEmail { get; set; }
         public string SecondEmail { get; set; }
         public string ThirdEmail { get; set; }
         public string Middlename { get; set; }
         public string Id { get; set; }
+
+        public string AllEmails
+        { 
+            get
+            {
+                if (allEmails != null || allEmails == "")
+                {
+                    return allEmails;
+                }
+                //если пусто хоть в одном , тогда клеим в кучку
+                return (CleanUp(FirstEmail) + CleanUp(SecondEmail) + CleanUp(ThirdEmail)).Trim();
+            }
+            set
+            {
+                allEmails = value;
+            }
+        
+
+
+}
+       
 
     }
 
