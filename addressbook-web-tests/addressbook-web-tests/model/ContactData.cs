@@ -28,7 +28,8 @@ namespace WebAaddressbookTests
         //возвращает строковое представление объектов типа ContactData(имя,фамилия)     
         public override string ToString()
         {
-            return "Lastname" + Lastname + "Firtsname=" + Firstname;
+           // return "Lastname" + Lastname + "Firtsname=" + Firstname;
+            return "Lastname=" + Lastname + "Firtsname=" + Firstname+ "\ntitle=" + Title + "\naddress=" + Address;
 
         }
         public override int GetHashCode()
@@ -141,8 +142,8 @@ namespace WebAaddressbookTests
 
 
 }
-       
 
+        public string Title { get; internal set; }
     }
 
 }
