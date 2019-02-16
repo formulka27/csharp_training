@@ -28,7 +28,9 @@ namespace WebAaddressbookTests
 
         //поле , где хранится запомненный список контактов
         private List<ContactData> contactCashe = null;
+
        
+
 
         //метод возвращает список контактов     
         public List<ContactData> GetContactList()
@@ -173,9 +175,10 @@ namespace WebAaddressbookTests
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
 
             return new ContactData(firstname, lastname)
-            //надо указать дополнительные проперти
+            //надо указать дополнительные свойства
             {
                 Address = address,
+
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone = workPhone,
@@ -223,13 +226,17 @@ namespace WebAaddressbookTests
             return Int32.Parse(m.Value);
         }
         //получаем информацию со страницы Details
+
         internal string GetContactInformationFromDetailsPage()
         {
             manager.Navigator.GoToHomePage();
             InitContactDetails(0);
             string details = driver.FindElement(By.XPath("//*[@id='content']")).Text;
-            details =Regex.Replace(details, @"[\r\n ]", "");//удаляем все пробелы , тире и переводы строк
-            return details.Replace("M:", "").Replace("H:", "").Replace("W:", "");
+
+             details =Regex.Replace(details, @"[\r\n ]", "");//удаляем все пробелы , тире и переводы строк
+    //      return details.Replace("M:", "").Replace("H:", "").Replace("W:", "");
+            return details;
+                 
         }
 
 //кликаем по иконке человечка, она же 6 элемент в строке
@@ -240,7 +247,7 @@ namespace WebAaddressbookTests
                 .FindElement(By.TagName("a")).Click();
         }
         ////проверяем информацию о контакте из формы Edit и клеим из нее строку как на странице Details 
-        internal string GetContactInformationFromFormToString()
+        internal ContactData GetContactInformationFromFormForDetails()
         {
             manager.Navigator.GoToHomePage();
             InitContactModification(0);
@@ -256,18 +263,28 @@ namespace WebAaddressbookTests
             string secondemail = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string thirdemail = driver.FindElement(By.Name("email3")).GetAttribute("value");
 
-            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
-            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
-            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
             
+            string phoneWithPrefix = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhoneWithPrefix = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhoneWithPrefix = driver.FindElement(By.Name("work")).GetAttribute("value");
 
-            string fromFormToString = firstname + middlename + lastname  +title +company+address + 
-                homePhone+mobilePhone+workPhone+ firstemail + secondemail + thirdemail ;
-            // return fromFormToString;
-            return Regex.Replace(fromFormToString, @"[\r\n ]", "");
+            return new ContactData(firstname, lastname)
+            //надо указать дополнительные свойства
+            {
 
-
-        }
+                Address = address,
+                Title = title,
+                Company = company,
+                Middlename = middlename,
+                PhoneWithPrefix = phoneWithPrefix,
+                MobilePhoneWithPrefix = mobilePhoneWithPrefix,
+                WorkPhoneWithPrefix = workPhoneWithPrefix,
+                FirstEmail = firstemail,
+                SecondEmail = secondemail,
+                ThirdEmail = thirdemail
+            };
+  
+    }
 
     }
 

@@ -25,12 +25,17 @@ namespace WebAaddressbookTests
         [Test]
         public void TestEditContactAndDetails()
         {
-            string fromDetails = app.Contacts.GetContactInformationFromDetailsPage(); //Получаем информацию о каком то одном контакте со страницы Details в виде строки
-            string fromFormToString = app.Contacts.GetContactInformationFromFormToString();
+           string fromDetails = app.Contacts.GetContactInformationFromDetailsPage(); //Получаем информацию о каком то одном контакте со страницы Details в виде строки
+           ContactData fromForm = app.Contacts.GetContactInformationFromFormForDetails();
+           string fromFormToString = string.Join("", fromForm);
             
-            //verifications
+
+            //    //verifications
             Assert.AreEqual(fromDetails, fromFormToString);//сравнила свойства ,которые прописала в методе Equals,это только имя и фамилия
-           
+
         }
+        
+
     }
+
 }

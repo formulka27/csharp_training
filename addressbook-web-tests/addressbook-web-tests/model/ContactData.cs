@@ -11,6 +11,9 @@ namespace WebAaddressbookTests
     {
         public string allPhones;
         public string allEmails;
+        public string phoneWithPrefix;
+        private string mobilephoneWithPrefix;
+        private string workphoneWithPrefix;
 
         //объявляем поля
         //private string firstname;
@@ -28,9 +31,10 @@ namespace WebAaddressbookTests
         //возвращает строковое представление объектов типа ContactData(имя,фамилия)     
         public override string ToString()
         {
-           // return "Lastname" + Lastname + "Firtsname=" + Firstname;
-            return "Lastname=" + Lastname + "Firtsname=" + Firstname+ "\ntitle=" + Title + "\naddress=" + Address;
-
+            // return "Lastname" + Lastname + "Firtsname=" + Firstname;
+            // return "Lastname=" + Lastname + "Firtsname=" + Firstname+ "\ntitle=" + Title + "\naddress=" + Address;
+           
+            return Regex.Replace((Firstname + Middlename + Lastname + Title + Company + Address + PhoneWithPrefix + MobilePhoneWithPrefix + WorkPhoneWithPrefix + FirstEmail + SecondEmail + ThirdEmail), @"[\r\n  ]", "");
         }
         public override int GetHashCode()
         {
@@ -76,11 +80,10 @@ namespace WebAaddressbookTests
 
         }
 
-
-
-
-
         //описываем свойства объекта 
+
+        public string Title { get; internal set; }
+        public string Company { get; internal set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public string Address { get; set; }
@@ -104,7 +107,57 @@ namespace WebAaddressbookTests
                 allPhones = value;
             }
         }
-       
+
+        //делаем строку для сравнения
+        public string PhoneWithPrefix
+        {
+            get
+            {
+                if (phoneWithPrefix == null || phoneWithPrefix == "")
+                {
+                    return "\r\n";
+                    
+                }
+                return "H:" + phoneWithPrefix;
+            }
+            set
+            {
+                phoneWithPrefix = value;
+            }
+        }
+        public string MobilePhoneWithPrefix
+        {
+            get
+            {
+                if (mobilephoneWithPrefix == null || mobilephoneWithPrefix == "")
+                {
+                    return "\r\n";
+                }
+                return "M:" + mobilephoneWithPrefix;
+            }
+            set
+            {
+                mobilephoneWithPrefix = value;
+            }
+        }
+
+        public string WorkPhoneWithPrefix
+        {
+            get
+            {
+                if (workphoneWithPrefix == ""  || workphoneWithPrefix == null)
+                {
+                    
+                    return "\r\n";
+                }
+                return "W:" + workphoneWithPrefix;
+            }
+            set
+            {
+                workphoneWithPrefix = value;
+            }
+        }
+
         //метод удаляет все нежелательные символы
         private string CleanUp(string phone)
         {
@@ -138,12 +191,10 @@ namespace WebAaddressbookTests
             {
                 allEmails = value;
             }
-        
-
-
 }
 
-        public string Title { get; internal set; }
+        
+    }
     }
 
-}
+
