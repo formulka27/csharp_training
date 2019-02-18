@@ -1,6 +1,12 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
+
+
 
 namespace WebAaddressbookTests
 {
@@ -20,13 +26,57 @@ namespace WebAaddressbookTests
                     Footer = GenerateRandomString(100)
                 });
             }
+//возвращаем список групп
+            return groups;
+        }
+        //метод альтернативный предыдущему -читает данные из сsv
+        public static IEnumerable<GroupData> GroupDataFromCsvFile()
+        {
+            //создаем список групп
+            List<GroupData> groups = new List<GroupData>();
+            //будем читать из списка значений,разделенных запятыми . самая простая ситуация
+            //читаем все строчки из этого файла и помещаем его в массив строк
+           string[] lines=File.ReadAllLines(@"group.csv");
+            foreach (string l in lines) 
+            {
+                string[] parts = l.Split(',');//разбили строку на куски
+                //создаем новый объект и добавляем его в список групп
+                groups.Add(new GroupData(parts[0])
+                {
+                    //заполняем остальные свойства
+                    Header = parts[1],
+                    Footer = parts[2]
+                });
+            }
 
             return groups;
         }
 
-      
+        //метод альтернативный предыдущему -читает данные из xml
+        public static IEnumerable<GroupData> GroupDataFromXmlFile()
+        {
+            //создаем список групп
+            List<GroupData> groups = new List<GroupData>();
+            //будем читать из xml и возвращать его указав явно тип (List<GroupData>) потому как Desirialize понятия не имеет о типе данных
+            return (List<GroupData>) //приведение типа
+                new XmlSerializer(typeof(List<GroupData>)).
+                Deserialize(new StreamReader(@"group.xml"));         
+        }
 
-        [Test, TestCaseSource("RandomGroupDataProvider")] //параметр,что используется внешний источник текстовыых данных, из метода в данном случае
+        //метод альтернативный предыдущему -читает данные из Json
+        public static IEnumerable<GroupData> GroupDataFromJsonFile()
+        {
+
+            return JsonConvert.DeserializeObject<List<GroupData>>(
+                File.ReadAllText(@"group.json"));
+
+        }
+
+
+        // [Test, TestCaseSource("RandomGroupDataProvider")] //параметр,что используется внешний источник текстовыых данных, из метода в данном случае
+        // [Test, TestCaseSource("GroupDataFromCsvFile")]
+        // [Test, TestCaseSource("GroupDataFromXmlFile")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
 
         public void GroupCreationTest(GroupData group)
         {

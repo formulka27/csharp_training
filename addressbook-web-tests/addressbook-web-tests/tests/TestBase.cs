@@ -28,7 +28,7 @@ namespace WebAaddressbookTests
             StringBuilder builder = new StringBuilder();
             for (int i=0; i<l; i++)
             {
-                builder.Append(Convert.ToChar(32 +Convert.ToInt32(rnd.NextDouble() * 223 )));//ковертируем в символы числовые коды символов asci
+                builder.Append(Convert.ToChar(32 +Convert.ToInt32(rnd.NextDouble() * 65 )));//ковертируем в символы числовые коды символов asci
             }
             //извлекаем из buildera получившуюся строчку и возвращаем ее
 

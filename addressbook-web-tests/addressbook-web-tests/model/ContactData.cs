@@ -14,6 +14,8 @@ namespace WebAaddressbookTests
         public string phoneWithPrefix;
         private string mobilephoneWithPrefix;
         private string workphoneWithPrefix;
+        public string Address;
+        
 
         //объявляем поля
         //private string firstname;
@@ -28,13 +30,20 @@ namespace WebAaddressbookTests
             Firstname = firstname;
             Lastname = lastname;
         }
+
+        //пустой конструктор
+        public ContactData()
+        {
+            
+        }
+
         //возвращает строковое представление объектов типа ContactData(имя,фамилия)     
         public override string ToString()
         {
             // return "Lastname" + Lastname + "Firtsname=" + Firstname;
             // return "Lastname=" + Lastname + "Firtsname=" + Firstname+ "\ntitle=" + Title + "\naddress=" + Address;
            
-            return Regex.Replace((Firstname + Middlename + Lastname + Title + Company + Address + PhoneWithPrefix + MobilePhoneWithPrefix + WorkPhoneWithPrefix + FirstEmail + SecondEmail + ThirdEmail), @"[\r\n  ]", "");
+            return Regex.Replace((Firstname + Middlename + Lastname + Title + Company  + PhoneWithPrefix + MobilePhoneWithPrefix + WorkPhoneWithPrefix + FirstEmail + SecondEmail + ThirdEmail), @"[\r\n  ]", "");
         }
         public override int GetHashCode()
         {
@@ -82,11 +91,11 @@ namespace WebAaddressbookTests
 
         //описываем свойства объекта 
 
-        public string Title { get; internal set; }
-        public string Company { get; internal set; }
+        public string Title { get; set; }
+        public string Company { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public string Address { get; set; }
+        public string MiddleName { get; set; }
         public string HomePhone { get; set; }
         public string WorkPhone { get; set; }
         public string MobilePhone { get; set; }

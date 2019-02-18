@@ -18,7 +18,7 @@ namespace WebAaddressbookTests
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
             //verifications
             Assert.AreEqual(fromTable, fromForm);//сравнила свойства ,которые прописала в методе Equals,это только имя и фамилия
-            Assert.AreEqual(fromTable.Address, fromForm.Address);
+            Assert.AreEqual(fromTable.Title, fromForm.Title);
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);//в таблице все кучкой -одна строка , в форме три =>надо склеить ,прежде чем сравнивать
             Assert.AreEqual(fromTable.AllEmails, fromForm.AllEmails);
         }

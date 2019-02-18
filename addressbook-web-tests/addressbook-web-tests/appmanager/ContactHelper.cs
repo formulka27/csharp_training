@@ -177,7 +177,7 @@ namespace WebAaddressbookTests
             return new ContactData(firstname, lastname)
             //надо указать дополнительные свойства
             {
-                Address = address,
+                Title = address,
 
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
@@ -210,7 +210,7 @@ namespace WebAaddressbookTests
             return new ContactData(firstname, lastname)
             //надо указать дополнительные свойства
             {
-                Address = address,
+                Title = address,
                 AllPhones = allPhones,
                 AllEmails=allEmails
             };
