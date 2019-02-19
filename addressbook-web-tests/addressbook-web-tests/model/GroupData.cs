@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LinqToDB.Mapping;
 
 namespace WebAaddressbookTests
 
 {
+    [Table (Name = "group_list")]
+  
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         //объявляем поля
@@ -75,12 +78,15 @@ namespace WebAaddressbookTests
         //    }
         //}
         //идентично 
+        [Column (Name="group_name"),NotNull]
         public string Name { get; set; }
         //еще и объявление поля строка 13 можно убрать , оно создается автоматически при вызове метода
-
+        //идентично 
+        [Column(Name = "group_header"),NotNull]
         public string Header { get; set; }
-
+        [Column(Name = "group_footer"),NotNull]
         public string Footer { get; set; }
+        [Column(Name = "group_id"),PrimaryKey,Identity]//NOTNull , Primary ,Identity важно тогда когда мы пишем в базу 
         public string Id { get; set; }
     }      
 

@@ -5,6 +5,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using System.Linq;
 
 
 
@@ -134,6 +135,27 @@ namespace WebAaddressbookTests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+        }
+        [Test]
+        public void TestDBConnectivity() //читает информацию из базы и выводит ее на консоль
+        {
+            DateTime start= DateTime.Now;
+            //читаем из ui
+            List<GroupData> fromUI= app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            //из базы 
+
+            AddressBookDB db = new AddressBookDB();//установили соединение
+            start = DateTime.Now;
+            List<GroupData> fromDB=(from g in db.Groups select g).ToList();//возвращвет лист 
+            db.Close();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+
+
         }
     }
 }

@@ -15,73 +15,37 @@ namespace addressbook_test_data_generations
     {
         static void Main(string[] args)
         {
-        //    //задали параметры
-        //    int count = Convert.ToInt32(args[0]); //в 0 передаем количество текстовых данных ,которые мы хоти сгенерировать
-        //    StreamWriter writer = new StreamWriter(args[1]);//параметр - имя нашего файла
-        //    string format = args[2];
-        //    List<GroupData> groups = new List<GroupData>();
-        //    //начали собственно генерацию
-
-
-        //    for (int i = 0; i < count; i++)
-        //    {
-        //        groups.Add(new GroupData(TestBase.GenerateRandomString(10))
-        //        {
-        //            Header = TestBase.GenerateRandomString(100),
-        //            Footer= TestBase.GenerateRandomString(100)
-        //        });
-        //    }
-        //    if (format=="csv")
-        //    {
-        //         WriteGroupsToCsvFile(groups, writer);
-        //    }
-        //    else if (format == "xml")
-        //    {
-        //        WriteGroupsToXmlFile(groups, writer);
-        //    }
-        //    else if (format == "json")
-        //    {
-        //        WriteGroupsToJsonFile(groups, writer);
-        //    }
-
-        //    else
-        //    {
-        //        System.Console.Out.Write("Unrecognized format" + format);
-
-        //    }
-        //    writer.Close();//гарантия того ,  что мы данные не потеряем и файл с 0 размером не будет создан
-        //}
-        ////для контактов
-
-        //static void MainContacts(string[] args)
-        //{
-            //задали параметры
+            //    //задали параметры
             int count = Convert.ToInt32(args[0]); //в 0 передаем количество текстовых данных ,которые мы хоти сгенерировать
             StreamWriter writer = new StreamWriter(args[1]);//параметр - имя нашего файла
             string format = args[2];
-            List<ContactData> contacts = new List<ContactData>();
-            //начало собственно генерации
+            List<GroupData> groups = new List<GroupData>();
+            //начали собственно генерацию
+
 
             for (int i = 0; i < count; i++)
             {
-                contacts.Add(new ContactData(TestBase.GenerateRandomString(10), TestBase.GenerateRandomString(10))
+                groups.Add(new GroupData(TestBase.GenerateRandomString(10))
                 {
-                    Address = TestBase.GenerateRandomString(100),
-                    MobilePhone = TestBase.GenerateRandomString(100)
-
+                    Header = TestBase.GenerateRandomString(100),
+                    Footer = TestBase.GenerateRandomString(100)
                 });
+            }
+            if (format == "excell")
+            {
+
             }
             if (format == "csv")
             {
-                WriteContactsToCsvFile(contacts, writer);
+                WriteGroupsToCsvFile(groups, writer);
             }
             else if (format == "xml")
             {
-                WriteContactsToXmlFile(contacts, writer);
+                WriteGroupsToXmlFile(groups, writer);
             }
             else if (format == "json")
             {
-                WriteContactsToJsonFile(contacts, writer);
+                WriteGroupsToJsonFile(groups, writer);
             }
 
             else
@@ -91,6 +55,46 @@ namespace addressbook_test_data_generations
             }
             writer.Close();//гарантия того ,  что мы данные не потеряем и файл с 0 размером не будет создан
         }
+        ////для контактов
+
+        //static void MainContacts(string[] args)
+        //{
+        //    //задали параметры
+        //    int count = Convert.ToInt32(args[0]); //в 0 передаем количество текстовых данных ,которые мы хоти сгенерировать
+        //    StreamWriter writer = new StreamWriter(args[1]);//параметр - имя нашего файла
+        //    string format = args[2];
+        //    List<ContactData> contacts = new List<ContactData>();
+        //    //начало собственно генерации
+
+        //    for (int i = 0; i < count; i++)
+        //    {
+        //        contacts.Add(new ContactData(TestBase.GenerateRandomString(10), TestBase.GenerateRandomString(10))
+        //        {
+        //            Address = TestBase.GenerateRandomString(100),
+        //            MobilePhone = TestBase.GenerateRandomString(100)
+
+        //        });
+        //    }
+        //    if (format == "csv")
+        //    {
+        //        WriteContactsToCsvFile(contacts, writer);
+        //    }
+        //    else if (format == "xml")
+        //    {
+        //        WriteContactsToXmlFile(contacts, writer);
+        //    }
+        //    else if (format == "json")
+        //    {
+        //        WriteContactsToJsonFile(contacts, writer);
+        //    }
+
+        //    else
+        //    {
+        //        System.Console.Out.Write("Unrecognized format" + format);
+
+        //    }
+        //    writer.Close();//гарантия того ,  что мы данные не потеряем и файл с 0 размером не будет создан
+        //}
 
 
 
