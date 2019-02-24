@@ -9,10 +9,12 @@ using System.Linq;
 
 
 
+
 namespace WebAaddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
+
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {

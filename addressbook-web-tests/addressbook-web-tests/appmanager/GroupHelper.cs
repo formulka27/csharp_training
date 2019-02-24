@@ -22,17 +22,7 @@ namespace WebAaddressbookTests
             ReturnToGroupsPage();
             return this;
         }
-        public GroupHelper ModifyByID(GroupData newData)
-        {
-
-            manager.Navigator.GoToGroupsPage();
-            SelectGroup(newData.Id);
-            InitGroupModification();
-            FillGroupForm(newData);
-            SubmitGroupModification();
-            ReturnToGroupsPage();
-            return this;
-        }
+        
 
 
 
@@ -47,6 +37,18 @@ namespace WebAaddressbookTests
             return this;
         }
 
+        public GroupHelper ModifyByDBID(GroupData oldData, GroupData newData)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(oldData.Id);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+            return this;
+
+        }
+
         public GroupHelper Remove(GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
@@ -57,14 +59,13 @@ namespace WebAaddressbookTests
         }
 
         //будет выбирать группу и отмечать ее галочкой по идентификатору
-        public GroupHelper SelectGroup(String id )
+        public GroupHelper SelectGroup(string id )
         {
            // Console.Out.Write(id);
             driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
             return this;
         }
 
-       
         
 
         public GroupHelper Remove(int p)
@@ -76,7 +77,8 @@ namespace WebAaddressbookTests
             return this;
         }
 
-        
+
+
 
 
         //for groups

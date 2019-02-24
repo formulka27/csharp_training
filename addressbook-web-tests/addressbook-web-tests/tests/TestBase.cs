@@ -6,7 +6,10 @@ namespace WebAaddressbookTests
 {
     public class TestBase
     {
+        public static bool PERFOM_LONG_UI_CHECKS =true;
+        public static bool PERFOM_LONG_UI_CHECKS_CONTACTS = true;
         protected ApplicationManager app;
+        
 
         [SetUp]
         public void SetupApplicationManager()

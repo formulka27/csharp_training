@@ -58,11 +58,28 @@ namespace WebAaddressbookTests
             }
             return new List<ContactData>(contactCashe);//возвращаем список
         }
+
+       
+
+
+
+
+
         //выбираем контакт по индексу
         public ContactHelper ContactRemoval(ContactData contact)
         {
             manager.Navigator.VerifyHomePage();
             SelectContact(contact.Id);
+            RemoveContact();
+            CloseAlert();
+            manager.Navigator.VerifyHomePage();
+            return this;
+        }
+        //контакт по id
+        public ContactHelper Remove(ContactData toBeRemoved)
+        {
+            manager.Navigator.VerifyHomePage();
+            SelectContact(toBeRemoved.Id);
             RemoveContact();
             CloseAlert();
             manager.Navigator.VerifyHomePage();
@@ -94,6 +111,24 @@ namespace WebAaddressbookTests
             manager.Navigator.VerifyHomePage();
             return this;
         }
+
+
+        public ContactHelper ModifyByID(ContactData oldData, ContactData newData)
+        {
+            manager.Navigator.VerifyHomePage();
+            EditContact(oldData.Id);
+            FillNewContactForm(newData);
+            SubmitContactModification();
+            return this;
+        }
+
+        public ContactHelper EditContact(string id)
+        {
+            //click on the pencil icon
+            driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            return this;
+        }
+
         public ContactHelper ModifyContact(ContactData newData)
         {
 
@@ -162,6 +197,8 @@ namespace WebAaddressbookTests
             contactCashe = null;
             return this;
         }
+
+
         //проверяем , хотя бы один контакт существует на нужной странице
         public bool IsContactPresent()
         {

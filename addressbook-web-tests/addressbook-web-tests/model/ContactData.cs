@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using LinqToDB.Mapping;
+using System.Data;
 
 namespace WebAaddressbookTests
 {
@@ -18,6 +19,7 @@ namespace WebAaddressbookTests
         private string workphoneWithPrefix;
         public string Address;
         
+
 
         //объявляем поля
         //private string firstname;
@@ -109,11 +111,11 @@ namespace WebAaddressbookTests
         public string FirstEmail { get; set; }
         public string SecondEmail { get; set; }
         public string ThirdEmail { get; set; }
-        
+       
         [Column(Name = "id"), PrimaryKey, Identity]//NOTNull , Primary ,Identity важно тогда когда мы пишем в базу 
         public string Id { get; set; }
-        [Column(Name = "deprecated"), NotNull]
-        public TimeSpan Deprecated { get; set; }
+   //     [Column(Name = "deprecated"), NotNull]
+    //    public DateTime Deprecated { get; set; }
 
 
 
@@ -225,11 +227,13 @@ namespace WebAaddressbookTests
 
             using (AddressBookDB db = new AddressBookDB())
             {
+               
                 
-                return (from g in db.Contacts select g).ToList();
+                    
 
+                    return (from g in db.Contacts select g).ToList();
+                 }
             }
-        }
 
     }
     }
