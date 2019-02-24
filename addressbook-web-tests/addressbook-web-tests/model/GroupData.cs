@@ -12,6 +12,8 @@ namespace WebAaddressbookTests
   
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
+        
+
         //объявляем поля
         //        private string name;
         //создаем конструктор для объекта группы
@@ -88,6 +90,19 @@ namespace WebAaddressbookTests
         public string Footer { get; set; }
         [Column(Name = "group_id"),PrimaryKey,Identity]//NOTNull , Primary ,Identity важно тогда когда мы пишем в базу 
         public string Id { get; set; }
+
+        //
+        public static List<GroupData> GetAll()
+        {
+           
+            using (AddressBookDB db = new AddressBookDB())
+            {
+
+             return (from g in db.Groups select g).ToList();
+                                                                                 
+            }
+        }
+
     }      
 
     }

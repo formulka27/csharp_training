@@ -123,6 +123,9 @@
     <Compile Include="UnitTest2.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="contact.json" />
     <None Include="group.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

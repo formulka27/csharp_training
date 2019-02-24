@@ -94,13 +94,30 @@ namespace WebAaddressbookTests
         //описываем свойства объекта 
 
         public string Title { get; set; }
+        [Column(Name = "company"), NotNull]
         public string Company { get; set; }
+        [Column(Name = "firstname"), NotNull]
         public string Firstname { get; set; }
+        [Column(Name = "lastname"), NotNull]
         public string Lastname { get; set; }
-        public string MiddleName { get; set; }
+        [Column(Name = "middlename"), NotNull]
+        public string Middlename { get; set; }
+        [Column(Name = "home"), NotNull]
         public string HomePhone { get; set; }
         public string WorkPhone { get; set; }
         public string MobilePhone { get; set; }
+        public string FirstEmail { get; set; }
+        public string SecondEmail { get; set; }
+        public string ThirdEmail { get; set; }
+        
+        [Column(Name = "id"), PrimaryKey, Identity]//NOTNull , Primary ,Identity важно тогда когда мы пишем в базу 
+        public string Id { get; set; }
+        [Column(Name = "deprecated"), NotNull]
+        public TimeSpan Deprecated { get; set; }
+
+
+
+
 
         public string AllPhones
         {
@@ -152,6 +169,11 @@ namespace WebAaddressbookTests
             }
         }
 
+        internal static List<ContactData> GetAllContacts()
+        {
+            throw new NotImplementedException();
+        }
+
         public string WorkPhoneWithPrefix
         {
             get
@@ -181,12 +203,7 @@ namespace WebAaddressbookTests
          //   return Regex.Replace(phone,"[ -()]", "")+"\r\n";
 
         }
-        public string FirstEmail { get; set; }
-        public string SecondEmail { get; set; }
-        public string ThirdEmail { get; set; }
-        public string Middlename { get; set; }
-        public string Id { get; set; }
-
+//
         public string AllEmails
         { 
             get
@@ -203,8 +220,17 @@ namespace WebAaddressbookTests
                 allEmails = value;
             }
 }
+        public static List<ContactData> GetAllContactFromTable()
+        {
 
-        
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                
+                return (from g in db.Contacts select g).ToList();
+
+            }
+        }
+
     }
     }
 

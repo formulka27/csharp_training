@@ -9,6 +9,7 @@ namespace WebAaddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
+            
             if (app.Groups.IsGroupPresent() == false)
             {
                 // если старой группы нет , то создаем ее предварительно с любыми параметрами
@@ -18,22 +19,23 @@ namespace WebAaddressbookTests
 
                 app.Groups.Create(nogroup);
                 Assert.IsTrue(app.Groups.IsGroupPresent());
+
             }
             //если существует только одна  - удаляем первую
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            
-            app.Groups.Remove(0);
+
+            List<GroupData> oldGroups = GroupData.GetAll();//поменяли на табличный
+            GroupData toBeRemoved = oldGroups[0]; //сохранили объект(имеено объект вместе с его идентиф и всеми остальными свойствами) ,который должен быть удален 
+            //app.Groups.Remove(0);//0 в ui совсем не то что в таблице
+            app.Groups.Remove(toBeRemoved);//удаляем объект
             Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
-            GroupData toBeRemoved = oldGroups[0];//запоминаем ID удаленной группы в переменную
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+           List<GroupData> newGroups = GroupData.GetAll();//поменяли на табличный
             oldGroups.RemoveAt(0);
-            oldGroups.Sort();
-            newGroups.Sort();
-          //  Assert.AreEqual(oldGroups, newGroups);
+           
+          Assert.AreEqual(oldGroups, newGroups);
 
             foreach (GroupData group in newGroups)
             {
-                //Assert.AreNotEqual(group.Id, oldGroups[0].Id);
+               
                 Assert.AreNotEqual(group.Id, toBeRemoved.Id);
                 }
             

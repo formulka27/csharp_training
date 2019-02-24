@@ -85,7 +85,8 @@ namespace WebAaddressbookTests
             //GroupData group = new GroupData("AAA");
             //group.Header = "BBB";
             //group.Footer = "CCC";
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            //List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups= GroupData.GetAll();
 
             app.Groups.Create(group);
             //полезно лишь в случаях часто падающих тестов
@@ -94,7 +95,8 @@ namespace WebAaddressbookTests
             //Assert.AreEqual(oldGroups.Count+1, count);
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
             //return the list of existing group
-            List<GroupData> newGroups=app.Groups.GetGroupList();
+            //  List<GroupData> newGroups=app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
@@ -137,7 +139,7 @@ namespace WebAaddressbookTests
             Assert.AreEqual(oldGroups, newGroups);
         }
         [Test]
-        public void TestDBConnectivity() //читает информацию из базы и выводит ее на консоль
+        public void TestGroupDBConnectivity() //читает информацию из базы и выводит ее на консоль
         {
             DateTime start= DateTime.Now;
             //читаем из ui
@@ -147,10 +149,9 @@ namespace WebAaddressbookTests
 
             //из базы 
 
-            AddressBookDB db = new AddressBookDB();//установили соединение
+          
             start = DateTime.Now;
-            List<GroupData> fromDB=(from g in db.Groups select g).ToList();//возвращвет лист 
-            db.Close();
+            List<GroupData> fromDb = GroupData.GetAll();
             end = DateTime.Now;
             System.Console.Out.WriteLine(end.Subtract(start));
 

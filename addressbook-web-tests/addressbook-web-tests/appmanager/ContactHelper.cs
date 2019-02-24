@@ -58,8 +58,24 @@ namespace WebAaddressbookTests
             }
             return new List<ContactData>(contactCashe);//возвращаем список
         }
+        //выбираем контакт по индексу
+        public ContactHelper ContactRemoval(ContactData contact)
+        {
+            manager.Navigator.VerifyHomePage();
+            SelectContact(contact.Id);
+            RemoveContact();
+            CloseAlert();
+            manager.Navigator.VerifyHomePage();
+            return this;
+        }
 
-        
+        public ContactHelper SelectContact(String id)
+            
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
+            return this;
+        }
+
         public ContactHelper ContactRemoval()
         //вариант 1 , выбираем по иконке  Edit ,тогда можно удалить без alert на странице Edit
         //{
@@ -137,6 +153,7 @@ namespace WebAaddressbookTests
             driver.SwitchTo().Alert().Accept();
             return this;
         }
+
 
         public ContactHelper RemoveContact()
         {

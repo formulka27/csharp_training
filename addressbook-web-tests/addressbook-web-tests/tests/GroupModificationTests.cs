@@ -25,30 +25,47 @@ namespace WebAaddressbookTests
             }
             //если существует - модифицируем первую
 
-            GroupData newData = new GroupData("New Modification");
+            GroupData newData = new GroupData("Новая группа");
             newData.Header = null;
             newData.Footer = null;
       
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            GroupData oldData = oldGroups[0];
-            app.Groups.Modify(0, newData);
+            //List<GroupData> oldGroups = app.Groups.GetGroupList();
+            //GroupData oldData = oldGroups[0];
+            //app.Groups.Modify(0, newData);
+            List<GroupData> oldGroups = GroupData.GetAll();//поменяли на табличный
+            GroupData toBeModified = oldGroups[0]; //объект ,который должен быть модифицирова
+            app.Groups.ModifyByID(toBeModified);
+
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());//быстрая проверка 
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups[0].Name = newData.Name;
-            oldGroups.Sort();
-            newGroups.Sort();
-           
+            // List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups= GroupData.GetAll();
+             oldGroups[0].Name = newData.Name;
+           // System.Console.Out.Write(oldGroups[0].de
+           // oldGroups[0].Name = toBeModified.Name;
+            //      oldGroups.Sort();
+            //      newGroups.Sort();
+
+
+
+   //         Assert.AreEqual(oldGroups, newGroups);
+
             foreach (GroupData group in newGroups)
             {
-                if (group.Id == oldData.Id)
-                {
-                    Assert.AreEqual(newData.Name,group.Name);
-                }
-                
+
+                Assert.AreNotEqual(group.Id, toBeModified.Id);
             }
+
+     //       foreach (GroupData group in newGroups)
+      //      {
+       //         if (group.Id == toBeRemoved.Id)
+      //          {
+       //             Assert.AreEqual(newData.Name,group.Name);
+       //         }
+                
+       //     }
         }
      
         }

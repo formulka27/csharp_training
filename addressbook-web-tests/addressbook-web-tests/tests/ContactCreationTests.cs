@@ -113,5 +113,25 @@ namespace WebAaddressbookTests
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
         }
+        [Test]
+        public void TestContactDBConnectivity() //читает информацию из базы и выводит ее на консоль
+        {
+            DateTime start = DateTime.Now;
+            //читаем из ui
+            List<ContactData> fromUI = app.Contacts.GetContactList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            //из базы 
+
+
+            start = DateTime.Now;
+            List<ContactData> fromDb = ContactData.GetAllContactFromTable();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+
+
+        }
     }
 }

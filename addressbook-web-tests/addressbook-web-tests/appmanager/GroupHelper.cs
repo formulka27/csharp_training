@@ -22,8 +22,19 @@ namespace WebAaddressbookTests
             ReturnToGroupsPage();
             return this;
         }
+        public GroupHelper ModifyByID(GroupData newData)
+        {
 
-       
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(newData.Id);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+
 
         public GroupHelper Modify(int p, GroupData newData)
         {
@@ -36,7 +47,25 @@ namespace WebAaddressbookTests
             return this;
         }
 
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group.Id);//принимает объект по идентификатору
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+        //будет выбирать группу и отмечать ее галочкой по идентификатору
+        public GroupHelper SelectGroup(String id )
+        {
+           // Console.Out.Write(id);
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
+            return this;
+        }
+
        
+        
 
         public GroupHelper Remove(int p)
         {
@@ -46,6 +75,8 @@ namespace WebAaddressbookTests
                  ReturnToGroupsPage();
             return this;
         }
+
+        
 
 
         //for groups
@@ -79,13 +110,15 @@ namespace WebAaddressbookTests
             driver.FindElement(By.LinkText("groups")).Click();
             return this;
         }
-
         public GroupHelper SelectGroup(int index)
+
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
-           
+            
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+
             return this;
-          }
+        }
+
 
         public GroupHelper RemoveGroup()
         {
@@ -162,6 +195,8 @@ namespace WebAaddressbookTests
         {
            return driver.FindElements(By.CssSelector("span.group")).Count;
         }
+
+        
 
     }
 }
