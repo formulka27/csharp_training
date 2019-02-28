@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using System.Text.RegularExpressions;
+using OpenQA.Selenium.Support.UI;
 
 namespace WebAaddressbookTests
 {
@@ -29,7 +30,9 @@ namespace WebAaddressbookTests
         //поле , где хранится запомненный список контактов
         private List<ContactData> contactCashe = null;
 
-       
+
+
+
 
 
         //метод возвращает список контактов     
@@ -59,7 +62,7 @@ namespace WebAaddressbookTests
             return new List<ContactData>(contactCashe);//возвращаем список
         }
 
-       
+
 
 
 
@@ -87,7 +90,7 @@ namespace WebAaddressbookTests
         }
 
         public ContactHelper SelectContact(String id)
-            
+
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
             return this;
@@ -211,7 +214,7 @@ namespace WebAaddressbookTests
         {
             return driver.FindElements(By.CssSelector("tr[name='entry']")).Count;
         }
-//проверяем информацию о контакте из формы Edit
+        //проверяем информацию о контакте из формы Edit
         internal ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -236,14 +239,14 @@ namespace WebAaddressbookTests
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone = workPhone,
-                FirstEmail=firstemail,
-                SecondEmail=secondemail,
-                ThirdEmail =thirdemail
+                FirstEmail = firstemail,
+                SecondEmail = secondemail,
+                ThirdEmail = thirdemail
             };
 
         }
 
-//кликаем по карандашику , он же 7 элемент в строке
+        //кликаем по карандашику , он же 7 элемент в строке
         public void InitContactModification(int index)
         {
             driver.FindElements(By.Name("entry"))[index]
@@ -266,7 +269,7 @@ namespace WebAaddressbookTests
             {
                 Title = address,
                 AllPhones = allPhones,
-                AllEmails=allEmails
+                AllEmails = allEmails
             };
 
         }
@@ -275,8 +278,8 @@ namespace WebAaddressbookTests
 
         {
             manager.Navigator.GoToHomePage();
-            string text=driver.FindElement(By.TagName("label")).Text;
-            Match m=new Regex(@"\d+").Match(text);
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
             return Int32.Parse(m.Value);
         }
         //получаем информацию со страницы Details
@@ -287,13 +290,13 @@ namespace WebAaddressbookTests
             InitContactDetails(0);
             string details = driver.FindElement(By.XPath("//*[@id='content']")).Text;
 
-             details =Regex.Replace(details, @"[\r\n ]", "");//удаляем все пробелы , тире и переводы строк
-    //      return details.Replace("M:", "").Replace("H:", "").Replace("W:", "");
+            details = Regex.Replace(details, @"[\r\n ]", "");//удаляем все пробелы , тире и переводы строк
+                                                             //      return details.Replace("M:", "").Replace("H:", "").Replace("W:", "");
             return details;
-                 
+
         }
 
-//кликаем по иконке человечка, она же 6 элемент в строке
+        //кликаем по иконке человечка, она же 6 элемент в строке
         private void InitContactDetails(int index)
         {
             driver.FindElements(By.Name("entry"))[index]
@@ -317,7 +320,7 @@ namespace WebAaddressbookTests
             string secondemail = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string thirdemail = driver.FindElement(By.Name("email3")).GetAttribute("value");
 
-            
+
             string phoneWithPrefix = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhoneWithPrefix = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhoneWithPrefix = driver.FindElement(By.Name("work")).GetAttribute("value");
@@ -337,11 +340,40 @@ namespace WebAaddressbookTests
                 SecondEmail = secondemail,
                 ThirdEmail = thirdemail
             };
-  
-    }
+        }
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();//очищаем фильрт по группам
+            SelectContactForAdding(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
 
-    }
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
 
+        }
+
+        private void SelectContactForAdding(string contactId)
+        {
+            driver.FindElement(By.Id(contactId)).Click();//чекнули бокс
+        }
+
+        private void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        private void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        private void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");//сбросили фильтр
+        }
+    }
 }
 
 

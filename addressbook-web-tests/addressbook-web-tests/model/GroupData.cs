@@ -21,6 +21,9 @@ namespace WebAaddressbookTests
         {
             Name = name;
         }
+
+        
+
         //пустой
         public GroupData()
         {
@@ -91,6 +94,20 @@ namespace WebAaddressbookTests
         [Column(Name = "group_id"),PrimaryKey,Identity]//NOTNull , Primary ,Identity важно тогда когда мы пишем в базу 
         public string Id { get; set; }
 
+
+        //
+        public List<ContactData> GetContatcs()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+
+                return (from c in db.Contacts
+                        from gcr in db.GCR.Where(p => p.GroupId==Id  && p.ContactId==c.Id && c.Deprecated== "0000-00-00 00:00:00")
+                        select c) .Distinct().ToList();
+
+            }
+
+        }
         //
         public static List<GroupData> GetAll()
         {

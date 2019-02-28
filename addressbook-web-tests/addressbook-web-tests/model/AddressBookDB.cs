@@ -14,9 +14,9 @@ namespace WebAaddressbookTests
         //для каждой таблице в бд надо написать метод ,который возвращает таблицу данных 
         public ITable<GroupData> Groups {get { return GetTable<GroupData>(); } }
         public ITable<ContactData> Contacts { get { return GetTable<ContactData>(); } }
+        public ITable<GroupContactRelation> GCR { get { return GetTable<GroupContactRelation>(); } }
 
-        
-        }
+    }
 
     }
 

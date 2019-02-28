@@ -94,6 +94,8 @@
   <ItemGroup>
     <Compile Include="appmanager\AuthTestBase.cs" />
     <Compile Include="model\AddressBookDB.cs" />
+    <Compile Include="model\GroupContactRelation.cs" />
+    <Compile Include="Tests\AddingContactToGroupTests.cs" />
     <Compile Include="Tests\ContactInformationTest.cs" />
     <Compile Include="SearchTest.cs" />
     <Compile Include="Tests\ContactTestBase.cs" />
