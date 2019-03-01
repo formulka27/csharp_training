@@ -30,9 +30,7 @@ namespace WebAaddressbookTests
         //поле , где хранится запомненный список контактов
         private List<ContactData> contactCashe = null;
 
-
-
-
+        
 
 
         //метод возвращает список контактов     
@@ -373,6 +371,26 @@ namespace WebAaddressbookTests
         {
             new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");//сбросили фильтр
         }
+//удаляем контакт из группы
+        internal void TestRemoveContactfromGroup(ContactData contact, GroupData group)
+        {
+            ClearGroupFilter();//очищаем фильрт по группам
+            SelectContactForAdding(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitRemoveContactFromGroup();
+            CloseAlert();
+            //   new WebDriverWait(driver, TimeSpan.FromSeconds(3))
+            //      .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+            manager.Navigator.VerifyHomePage();
+        }
+
+        private void CommitRemoveContactFromGroup()
+        {
+          driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+          //  driver.FindElement(By.Name("remove")).Click();
+
+        }
+
     }
 }
 

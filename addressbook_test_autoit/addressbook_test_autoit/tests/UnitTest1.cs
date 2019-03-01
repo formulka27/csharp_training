@@ -1,12 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace addressbook_test_autoit
 {
-    [TestClass]
-    public class UnitTest1
+    [TestFixture]
+
+        public class UnitTest1:TestBase
     {
-        [TestMethod]
+        [Test]
         public void TestMethod1()
         {
         }
